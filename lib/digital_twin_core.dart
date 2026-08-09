@@ -65,3 +65,15 @@ export 'domains/restaurant/customer.dart';
 export 'domains/restaurant/table.dart';
 export 'domains/warehouse/item.dart';
 export 'domains/warehouse/storage.dart';
+
+// Spatial Candidates (Step 10)
+export 'application/spatial/candidates/candidate_generator.dart';
+export 'application/spatial/candidates/surface_candidate_generator.dart';
+export 'application/spatial/candidates/anchor_candidate_generator.dart';
+export 'application/spatial/candidates/composite_candidate_generator.dart';
+
+// Spatial Scoring (Step 10)
+export 'application/spatial/scoring/placement_scorer.dart';
+export 'application/spatial/scoring/distance_scorer.dart';
+export 'application/spatial/scoring/anchor_preference_scorer.dart';
+export 'application/spatial/scoring/composite_placement_scorer.dart';

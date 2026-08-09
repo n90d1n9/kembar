@@ -4,18 +4,12 @@
 __pycache__/
 *.o
 *.obj
+*.class
 *.exe
 *.dll
 *.so
 *.a
 *.out
-*.class
-*.jar
-*.war
-*.zip
-*.tar.gz
-*.tar.xz
-*.tar.bz2
 
 # Dependencies
 node_modules/
@@ -24,13 +18,6 @@ venv/
 .env
 .env.local
 .env.*
-
-# Build directories
-dist/
-build/
-target/
-.dart_tool/
-.pub/
 
 # Logs and temp files
 *.log
@@ -41,21 +28,17 @@ target/
 # Editors
 .vscode/
 .idea/
-*.swp
-*.swo
 
-# System files
-.DS_Store
-Thumbs.db
+# Build directories
+dist/
+build/
+target/
+.gradle/
 
-# Testing and coverage
-.coverage
+# Coverage
 coverage/
 htmlcov/
-.pytest_cache/
-.mypy_cache/
-.nyc_output/
-coverage-final.json
+.coverage
 
 # Compressed files
 *.zip
@@ -76,4 +59,16 @@ coverage-final.json
 *.Z
 *.lz
 *.lzo
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Cache directories
+.mypy_cache/
+.pytest_cache/
 ```
