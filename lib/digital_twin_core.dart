@@ -88,3 +88,24 @@ export 'application/spatial/neighbors/neighbor_analyzer.dart';
 export 'domain/spatial/relations/spatial_relationship.dart';
 export 'application/spatial/relations/spatial_relation_query.dart';
 export 'application/spatial/relations/relation_constraint_resolver.dart';
+
+// Interactive Simulation & Game Controls (Step 13)
+// Physics
+export 'application/simulation/physics/physics_body.dart';
+export 'application/simulation/physics/simple_physics_engine.dart';
+
+// Simulation Core
+export 'application/simulation/core/simulation_step.dart';
+
+// Interaction
+export 'application/interaction/drag_drop_controller.dart';
+export 'application/interaction/tool_manager.dart';
+export 'application/interaction/gesture_handler.dart';
+
+// Event System
+export 'domain/event/command.dart';
+export 'domain/event/event_bus.dart';
+
+// Game Features
+export 'application/simulation/time_warp.dart';
+export 'application/simulation/scenario_runner.dart';
