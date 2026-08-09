@@ -1,4 +1,5 @@
 import '../core/vector3.dart';
+import '../interaction/interaction_type.dart';
 
 /// A generic visual representation of a twin entity in a scene.
 ///
@@ -36,6 +37,17 @@ class SceneNode {
 
   final bool visible;
 
+  /// Whether this node can receive user interactions.
+  final bool interactive;
+
+  /// The set of interaction types this node supports.
+  ///
+  /// Examples:
+  /// - Container: {select, inspect, move}
+  /// - Building: {select, inspect, focus}
+  /// - Robot: {select, inspect, move, activate, deactivate}
+  final Set<InteractionType> supportedInteractions;
+
   const SceneNode({
     required this.id,
     required this.entityType,
@@ -44,6 +56,11 @@ class SceneNode {
     this.scale = const Vector3(1, 1, 1),
     this.assetId,
     this.visible = true,
+    this.interactive = true,
+    this.supportedInteractions = const {
+      InteractionType.select,
+      InteractionType.inspect,
+    },
   });
 
   SceneNode copyWith({
@@ -54,6 +71,8 @@ class SceneNode {
     Vector3? scale,
     String? assetId,
     bool? visible,
+    bool? interactive,
+    Set<InteractionType>? supportedInteractions,
   }) {
     return SceneNode(
       id: id ?? this.id,
@@ -63,6 +82,8 @@ class SceneNode {
       scale: scale ?? this.scale,
       assetId: assetId ?? this.assetId,
       visible: visible ?? this.visible,
+      interactive: interactive ?? this.interactive,
+      supportedInteractions: supportedInteractions ?? this.supportedInteractions,
     );
   }
 
@@ -75,7 +96,9 @@ class SceneNode {
         other.rotation == rotation &&
         other.scale == scale &&
         other.assetId == assetId &&
-        other.visible == visible;
+        other.visible == visible &&
+        other.interactive == interactive &&
+        other.supportedInteractions == supportedInteractions;
   }
 
   @override
@@ -87,6 +110,8 @@ class SceneNode {
         scale,
         assetId,
         visible,
+        interactive,
+        supportedInteractions,
       );
 
   @override
