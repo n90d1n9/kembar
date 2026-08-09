@@ -1,4 +1,5 @@
 import '../../domain/core/twin_core.dart';
+import '../../domain/interaction/interaction_type.dart';
 import '../../domain/scene/scene_node.dart';
 import 'scene_node_builder.dart';
 
@@ -38,6 +39,12 @@ class ContainerSceneNodeBuilder implements SceneNodeBuilder {
       rotation: spatial?.rotation ?? const Vector3(0, 0, 0),
       scale: spatial?.scale ?? const Vector3(1, 1, 1),
       assetId: assetId,
+      interactive: true,
+      supportedInteractions: const {
+        InteractionType.select,
+        InteractionType.inspect,
+        InteractionType.move,
+      },
     );
   }
 
