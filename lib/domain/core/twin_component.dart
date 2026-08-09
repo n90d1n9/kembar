@@ -1,3 +1,5 @@
+import 'twin_property.dart';
+
 abstract class TwinComponent {
   const TwinComponent();
 

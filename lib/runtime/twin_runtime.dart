@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import '../../domain/core/twin_entity.dart';
-import '../../domain/core/twin_event.dart';
-import '../../domain/core/twin_state.dart';
+import '../domain/core/twin_entity.dart';
+import '../domain/core/twin_event.dart';
+import '../domain/core/twin_state.dart';
 
 class TwinRuntime {
   TwinState _state;

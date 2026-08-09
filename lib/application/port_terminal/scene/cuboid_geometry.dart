@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import '../../domain/value_objects/position3d.dart';
+import '../../../domain/value_objects/position3d.dart';
 import 'placed_container.dart';
 
 /// The 8 world-space corners of a [PlacedContainer]'s box, in a fixed

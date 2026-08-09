@@ -1,4 +1,4 @@
-import '../../domain/value_objects/position3d.dart';
+import '../../../domain/value_objects/position3d.dart';
 import 'cuboid_geometry.dart';
 import 'orbit_camera.dart';
 import 'placed_container.dart';
@@ -46,25 +46,32 @@ List<ProjectedContainerScene> projectYardScene({
       (corners[0].z + corners[6].z) / 2,
     );
     final projectedCentroid = camera.project(centroid);
-    if (!projectedCentroid.visible) continue; // whole container is behind the camera
+    if (!projectedCentroid.visible)
+      continue; // whole container is behind the camera
 
     final faceDefs = visibleCuboidFaces(container, corners, camera.eye);
     if (faceDefs.isEmpty) continue;
 
-    final projectedCorners = corners.map(camera.project).toList(growable: false);
+    final projectedCorners =
+        corners.map(camera.project).toList(growable: false);
 
     final faces = <ProjectedFace>[];
     for (final face in faceDefs) {
       if (face.cornerIndices.any((i) => !projectedCorners[i].visible)) {
         continue; // a corner behind the camera would make a garbage polygon
       }
-      final xs = face.cornerIndices.map((i) => projectedCorners[i].x).toList(growable: false);
-      final ys = face.cornerIndices.map((i) => projectedCorners[i].y).toList(growable: false);
+      final xs = face.cornerIndices
+          .map((i) => projectedCorners[i].x)
+          .toList(growable: false);
+      final ys = face.cornerIndices
+          .map((i) => projectedCorners[i].y)
+          .toList(growable: false);
       faces.add(ProjectedFace(xs, ys, face.shade));
     }
     if (faces.isEmpty) continue;
 
-    results.add(ProjectedContainerScene(container.id, projectedCentroid.depth, faces));
+    results.add(
+        ProjectedContainerScene(container.id, projectedCentroid.depth, faces));
   }
 
   return results;

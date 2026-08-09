@@ -1,6 +1,6 @@
-import '../../domain/entities/yard_block_layout.dart';
-import '../../domain/value_objects/position3d.dart';
-import '../../domain/value_objects/yard_slot.dart';
+import '../../../domain/entities/yard_block_layout.dart';
+import '../../../domain/value_objects/position3d.dart';
+import '../../../domain/value_objects/yard_slot.dart';
 
 /// Strategy interface for turning a yard slot into a real Cartesian
 /// position. Kept abstract so alternative placement strategies (e.g. a

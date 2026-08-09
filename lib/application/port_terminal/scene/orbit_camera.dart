@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import '../../domain/value_objects/position3d.dart';
+import '../../../domain/value_objects/position3d.dart';
 
 /// Result of projecting one world point through an [OrbitCamera]. (x, y)
 /// are relative to the viewport center — a caller adds its own center
@@ -130,9 +130,15 @@ class OrbitCamera {
 
     return _CameraBasis(
       eye: eyePos,
-      rightX: rx, rightY: ry, rightZ: rz,
-      upX: ux, upY: uy, upZ: uz,
-      forwardX: fx, forwardY: fy, forwardZ: fz,
+      rightX: rx,
+      rightY: ry,
+      rightZ: rz,
+      upX: ux,
+      upY: uy,
+      upZ: uz,
+      forwardX: fx,
+      forwardY: fy,
+      forwardZ: fz,
     );
   }
 
@@ -149,7 +155,8 @@ class OrbitCamera {
 
     final camX = rx * basis.rightX + ry * basis.rightY + rz * basis.rightZ;
     final camY = rx * basis.upX + ry * basis.upY + rz * basis.upZ;
-    final camZ = rx * basis.forwardX + ry * basis.forwardY + rz * basis.forwardZ;
+    final camZ =
+        rx * basis.forwardX + ry * basis.forwardY + rz * basis.forwardZ;
 
     const nearPlane = 0.05;
     if (camZ <= nearPlane) {
@@ -157,7 +164,8 @@ class OrbitCamera {
     }
 
     final scale = focalLength / camZ;
-    return ProjectedPoint(x: camX * scale, y: -camY * scale, depth: camZ, visible: true);
+    return ProjectedPoint(
+        x: camX * scale, y: -camY * scale, depth: camZ, visible: true);
   }
 }
 
@@ -169,8 +177,14 @@ class _CameraBasis {
 
   const _CameraBasis({
     required this.eye,
-    required this.rightX, required this.rightY, required this.rightZ,
-    required this.upX, required this.upY, required this.upZ,
-    required this.forwardX, required this.forwardY, required this.forwardZ,
+    required this.rightX,
+    required this.rightY,
+    required this.rightZ,
+    required this.upX,
+    required this.upY,
+    required this.upZ,
+    required this.forwardX,
+    required this.forwardY,
+    required this.forwardZ,
   });
 }

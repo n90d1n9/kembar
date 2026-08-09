@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../application/scene/cuboid_hit_test.dart';
-import '../../application/scene/orbit_camera.dart';
-import '../../application/scene/placed_container.dart';
-import '../../application/scene/projected_scene.dart';
+import '../../application/port_terminal/scene/cuboid_hit_test.dart';
+import '../../application/port_terminal/scene/orbit_camera.dart';
+import '../../application/port_terminal/scene/placed_container.dart';
+import '../../application/port_terminal/scene/projected_scene.dart';
 import '../../domain/value_objects/position3d.dart';
 import 'yard_canvas_painter.dart';
 
@@ -96,7 +96,8 @@ class YardCanvasViewState extends State<YardCanvasView> {
       // of the whole drag.
       final azimuth = _camera.azimuthDeg - details.focalPointDelta.dx * 0.4;
       final elevation =
-          (_camera.elevationDeg + details.focalPointDelta.dy * 0.4).clamp(-85.0, 85.0);
+          (_camera.elevationDeg + details.focalPointDelta.dy * 0.4)
+              .clamp(-85.0, 85.0);
 
       // details.scale, by contrast, *is* cumulative relative to pointer
       // distance at gesture start — so zoom recomputes each frame
@@ -104,7 +105,8 @@ class YardCanvasViewState extends State<YardCanvasView> {
       // accumulated onto the current value. With a single pointer
       // (a plain drag), scale stays at 1.0, so distance is unaffected —
       // exactly the "drag orbits, pinch zooms" split this is meant to be.
-      final distance = (_cameraAtGestureStart.distance / details.scale).clamp(5.0, 400.0);
+      final distance =
+          (_cameraAtGestureStart.distance / details.scale).clamp(5.0, 400.0);
 
       _camera = OrbitCamera(
         target: _camera.target,
@@ -123,9 +125,11 @@ class YardCanvasViewState extends State<YardCanvasView> {
     }
     if (widget.onContainerTap == null) return;
 
-    final centerOffset = Offset(viewportSize.width / 2, viewportSize.height / 2);
+    final centerOffset =
+        Offset(viewportSize.width / 2, viewportSize.height / 2);
     final relative = startPoint - centerOffset;
-    final scene = projectYardScene(containers: widget.containers, camera: _camera);
+    final scene =
+        projectYardScene(containers: widget.containers, camera: _camera);
     final hitId = hitTestProjectedScene(scene, relative.dx, relative.dy);
     if (hitId != null) {
       widget.onContainerTap!(hitId);

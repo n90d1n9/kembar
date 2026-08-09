@@ -1,4 +1,5 @@
-import '../../domain/core/spatial_component.dart';
+import '../../../domain/core/spatial_component.dart';
+import '../../../domain/core/vector3.dart';
 
 class SceneNode {
   final String id;

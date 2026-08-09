@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../application/mapping/container_position_mapper.dart';
-import '../../application/mapping/slot_position_mapper.dart';
+import '../../application/port_terminal/mapping/container_position_mapper.dart';
+import '../../application/port_terminal/mapping/slot_position_mapper.dart';
 import '../../domain/repositories/container_repository.dart';
 import '../../domain/repositories/yard_layout_repository.dart';
 import '../../infrastructure/network/twin_backend_config.dart';
@@ -57,7 +57,8 @@ final containerRepositoryProvider = Provider<ContainerRepository>((ref) {
   return FakeContainerRepository();
 });
 
-final containerPositionMapperProvider = Provider<ContainerPositionMapper>((ref) {
+final containerPositionMapperProvider =
+    Provider<ContainerPositionMapper>((ref) {
   return const SlotPositionMapper();
 });
 

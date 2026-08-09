@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:lite_3d_core/lite_3d_core.dart';
 
-import '../../application/scene/placed_container.dart';
+import '../../application/port_terminal/scene/placed_container.dart';
 import '../../domain/entities/container_status.dart';
 import '../../domain/entities/yard_block_layout.dart';
 import 'scene_render_adapter.dart';
@@ -16,7 +16,8 @@ class Lite3dSceneRenderAdapter implements SceneRenderAdapter {
   const Lite3dSceneRenderAdapter();
 
   @override
-  Uint8List buildGlb(List<PlacedContainer> containers, {YardBlockLayout? layout}) {
+  Uint8List buildGlb(List<PlacedContainer> containers,
+      {YardBlockLayout? layout}) {
     final nodes = <Node3D>[];
 
     if (layout != null) {
@@ -47,7 +48,8 @@ class Lite3dSceneRenderAdapter implements SceneRenderAdapter {
     // Must go through the same rotation as every container on this block —
     // otherwise a rotated block's ground plate ends up offset from its own
     // containers instead of sitting under them.
-    final rotated = _rotateXZ(localCenterX, localCenterZ, layout.orientationDeg);
+    final rotated =
+        _rotateXZ(localCenterX, localCenterZ, layout.orientationDeg);
 
     return Node3D(
       name: '${layout.blockId}_ground_plate',
@@ -58,7 +60,9 @@ class Lite3dSceneRenderAdapter implements SceneRenderAdapter {
         layout.origin.y,
         layout.origin.z + rotated.$2,
       ),
-      rotation: layout.orientationDeg == 0 ? null : _yawQuaternionDeg(layout.orientationDeg),
+      rotation: layout.orientationDeg == 0
+          ? null
+          : _yawQuaternionDeg(layout.orientationDeg),
       animatable: false,
     );
   }
@@ -73,8 +77,11 @@ class Lite3dSceneRenderAdapter implements SceneRenderAdapter {
       name: container.label,
       mesh: mesh,
       material: _materialFor(container.status),
-      translation: Vec3(container.baseCenter.x, container.baseCenter.y, container.baseCenter.z),
-      rotation: container.rotationYDeg == 0 ? null : _yawQuaternionDeg(container.rotationYDeg),
+      translation: Vec3(container.baseCenter.x, container.baseCenter.y,
+          container.baseCenter.z),
+      rotation: container.rotationYDeg == 0
+          ? null
+          : _yawQuaternionDeg(container.rotationYDeg),
       datumId: container.id,
       animatable: true,
     );
@@ -90,15 +97,20 @@ class Lite3dSceneRenderAdapter implements SceneRenderAdapter {
   static Material3D _materialFor(ContainerStatus status) {
     switch (status) {
       case ContainerStatus.laden:
-        return const Material3D(baseColor: [0.16, 0.50, 0.83, 1.0], name: 'laden');
+        return const Material3D(
+            baseColor: [0.16, 0.50, 0.83, 1.0], name: 'laden');
       case ContainerStatus.empty:
-        return const Material3D(baseColor: [0.55, 0.55, 0.55, 1.0], name: 'empty');
+        return const Material3D(
+            baseColor: [0.55, 0.55, 0.55, 1.0], name: 'empty');
       case ContainerStatus.onHold:
-        return const Material3D(baseColor: [0.90, 0.65, 0.10, 1.0], name: 'on_hold');
+        return const Material3D(
+            baseColor: [0.90, 0.65, 0.10, 1.0], name: 'on_hold');
       case ContainerStatus.reservedForLoad:
-        return const Material3D(baseColor: [0.30, 0.70, 0.35, 1.0], name: 'reserved_for_load');
+        return const Material3D(
+            baseColor: [0.30, 0.70, 0.35, 1.0], name: 'reserved_for_load');
       case ContainerStatus.damaged:
-        return const Material3D(baseColor: [0.80, 0.15, 0.15, 1.0], name: 'damaged');
+        return const Material3D(
+            baseColor: [0.80, 0.15, 0.15, 1.0], name: 'damaged');
     }
   }
 

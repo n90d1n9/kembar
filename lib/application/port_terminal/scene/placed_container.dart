@@ -1,5 +1,5 @@
-import '../../domain/entities/container_status.dart';
-import '../../domain/value_objects/position3d.dart';
+import '../../../domain/entities/container_status.dart';
+import '../../../domain/value_objects/position3d.dart';
 
 /// Render-agnostic description of one container's placement — the output
 /// of [ContainerSceneBuilder] and the input to whatever rendering adapter

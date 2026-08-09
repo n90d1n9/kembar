@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../application/scene/orbit_camera.dart';
-import '../../application/scene/placed_container.dart';
-import '../../application/scene/projected_scene.dart';
+import '../../application/port_terminal/scene/orbit_camera.dart';
+import '../../application/port_terminal/scene/placed_container.dart';
+import '../../application/port_terminal/scene/projected_scene.dart';
 
 /// Draws a yard scene straight from live [PlacedContainer] data using
 /// Flutter's own Canvas — no GLB, no WebView, no reload. This is the
@@ -47,7 +47,8 @@ class YardCanvasPainter extends CustomPainter {
       for (final face in entry.faces) {
         final path = Path();
         for (var i = 0; i < face.screenX.length; i++) {
-          final offset = centerOffset + Offset(face.screenX[i], face.screenY[i]);
+          final offset =
+              centerOffset + Offset(face.screenX[i], face.screenY[i]);
           if (i == 0) {
             path.moveTo(offset.dx, offset.dy);
           } else {
@@ -69,7 +70,8 @@ class YardCanvasPainter extends CustomPainter {
           // .withOpacity has been available since early Flutter and is
           // safe across the whole declared range even though it's the
           // now-deprecated spelling on the newest SDKs.
-          ..color = isHighlighted ? Colors.white : Colors.black.withOpacity(0.25)
+          ..color =
+              isHighlighted ? Colors.white : Colors.black.withOpacity(0.25)
           ..style = PaintingStyle.stroke
           ..strokeWidth = isHighlighted ? 2.5 : 0.75;
         canvas.drawPath(path, strokePaint);

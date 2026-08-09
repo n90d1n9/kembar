@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:terminal_digital_twin/application/runtime/twin_runtime.dart';
+import 'package:terminal_digital_twin/runtime/twin_runtime.dart';
 import 'package:terminal_digital_twin/domain/core/twin_component.dart';
 import 'package:terminal_digital_twin/domain/core/twin_entity.dart';
 import 'package:terminal_digital_twin/domain/core/twin_entity_id.dart';
@@ -138,8 +138,7 @@ void main() {
         },
       );
 
-      final component =
-          entity.component('properties') as PropertiesComponent;
+      final component = entity.component('properties') as PropertiesComponent;
 
       expect(
         (component.get('temperature') as TwinNumber).value,

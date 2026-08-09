@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import '../../application/scene/placed_container.dart';
+import '../../application/port_terminal/scene/placed_container.dart';
 import '../../domain/entities/yard_block_layout.dart';
 
 /// Abstraction over "turn placed containers into a renderable binary
@@ -9,5 +9,6 @@ import '../../domain/entities/yard_block_layout.dart';
 /// (matching lite_3d_core's own backend-abstraction philosophy) means
 /// writing a new adapter, not touching scene-building or UI code.
 abstract class SceneRenderAdapter {
-  Uint8List buildGlb(List<PlacedContainer> containers, {YardBlockLayout? layout});
+  Uint8List buildGlb(List<PlacedContainer> containers,
+      {YardBlockLayout? layout});
 }

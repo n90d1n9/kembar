@@ -1,4 +1,4 @@
-import '../../domain/core/twin_state.dart';
+import '../../../domain/core/twin_state.dart';
 import 'scene.dart';
 import 'scene_node.dart';
 

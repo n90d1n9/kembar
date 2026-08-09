@@ -1,4 +1,4 @@
-import '../../domain/value_objects/yard_slot.dart';
+import '../../../domain/value_objects/yard_slot.dart';
 
 /// A bay/row window used to cap how many containers get placed into a
 /// scene at once. lite_3d_core's own docs note its GLB export is tuned
@@ -18,5 +18,8 @@ class YardBoundingBox {
   });
 
   bool contains(YardSlot slot) =>
-      slot.bay >= minBay && slot.bay <= maxBay && slot.row >= minRow && slot.row <= maxRow;
+      slot.bay >= minBay &&
+      slot.bay <= maxBay &&
+      slot.row >= minRow &&
+      slot.row <= maxRow;
 }

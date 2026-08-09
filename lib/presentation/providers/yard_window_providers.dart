@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../application/scene/yard_bounding_box.dart';
+import '../../application/port_terminal/scene/yard_bounding_box.dart';
 import '../../domain/entities/yard_block_layout.dart';
 
 /// Windowing state per yard block — the practical answer to "viewport-
@@ -20,7 +20,8 @@ class YardWindowController extends FamilyNotifier<YardBoundingBox, String> {
   /// A conservative default that renders before the real layout has even
   /// loaded — 8 bays across all rows keeps the first paint small no
   /// matter how big the block turns out to be.
-  static const _defaultWindow = YardBoundingBox(minBay: 1, maxBay: 8, minRow: 1, maxRow: 999);
+  static const _defaultWindow =
+      YardBoundingBox(minBay: 1, maxBay: 8, minRow: 1, maxRow: 999);
 
   @override
   YardBoundingBox build(String blockId) => _defaultWindow;
@@ -44,6 +45,7 @@ class YardWindowController extends FamilyNotifier<YardBoundingBox, String> {
   }
 }
 
-final yardWindowProvider = NotifierProvider.family<YardWindowController, YardBoundingBox, String>(
+final yardWindowProvider =
+    NotifierProvider.family<YardWindowController, YardBoundingBox, String>(
   YardWindowController.new,
 );

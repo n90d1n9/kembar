@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
-import '../../domain/value_objects/geo_point.dart';
-import '../../domain/value_objects/position3d.dart';
+import '../../../domain/value_objects/geo_point.dart';
+import '../../../domain/value_objects/position3d.dart';
 
 /// Strategy interface for placing geo-tracked assets (trucks, cranes,
 /// vessels) into the same local Cartesian space the yard twin uses. Not
@@ -24,7 +24,8 @@ class EquirectangularGeoTransformer implements GeoToLocalTransformer {
 
   @override
   Position3D toLocal(GeoPoint point) {
-    final metersPerDegLon = _metersPerDegLat * math.cos(origin.latitude * math.pi / 180.0);
+    final metersPerDegLon =
+        _metersPerDegLat * math.cos(origin.latitude * math.pi / 180.0);
     final x = (point.longitude - origin.longitude) * metersPerDegLon;
     final z = (point.latitude - origin.latitude) * _metersPerDegLat;
     return Position3D(x, point.altitudeM, z);
