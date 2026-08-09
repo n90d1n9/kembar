@@ -9,6 +9,8 @@ class Vector3 {
     this.z,
   );
 
+  const Vector3.zero() : this(0, 0, 0);
+
   Vector3 operator +(Vector3 other) {
     return Vector3(
       x + other.x,
@@ -33,6 +35,12 @@ class Vector3 {
     );
   }
 
+  Vector3 operator -() {
+    return Vector3(-x, -y, -z);
+  }
+
+  double get length => (x * x + y * y + z * z).sqrt();
+
   @override
   bool operator ==(Object other) {
     return other is Vector3 &&
@@ -46,4 +54,6 @@ class Vector3 {
 
   @override
   String toString() => 'Vector3($x, $y, $z)';
+
+  static Vector3 all(double value) => Vector3(value, value, value);
 }
