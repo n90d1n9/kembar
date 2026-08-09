@@ -31,13 +31,18 @@ class Bounds {
         point.z <= max.z;
   }
 
+  /// Check if this bounds intersects with another.
+  /// 
+  /// Uses strict inequality (< and >) so that touching boxes are NOT
+  /// considered intersecting. This is important because touching is valid
+  /// support (e.g., cargo sitting on a shelf).
   bool intersects(Bounds other) {
-    return min.x <= other.max.x &&
-        max.x >= other.min.x &&
-        min.y <= other.max.y &&
-        max.y >= other.min.y &&
-        min.z <= other.max.z &&
-        max.z >= other.min.z;
+    return min.x < other.max.x &&
+        max.x > other.min.x &&
+        min.y < other.max.y &&
+        max.y > other.min.y &&
+        min.z < other.max.z &&
+        max.z > other.min.z;
   }
 
   Bounds translated(Vector3 offset) {

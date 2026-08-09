@@ -1,5 +1,6 @@
-import '../../domain/core/vector3.dart';
+import 'package:vector_math/vector_math_64.dart';
 
+import '../../domain/spatial/bounds.dart';
 import '../../domain/spatial/placement_request.dart';
 import '../../domain/spatial/placement_result.dart';
 import '../../domain/spatial/spatial_relation.dart';
@@ -7,14 +8,23 @@ import 'collision_detector.dart';
 import 'placement_candidate.dart';
 import 'spatial_world.dart';
 import 'surface_placement_strategy.dart';
+import 'constraints/placement_constraint.dart';
 
-/// Engine that finds valid placements for entities.
+/// Engine that finds valid placements for entities using a constraint-based approach.
+/// 
+/// The PlacementEngine is domain-agnostic - it knows nothing about warehouses,
+/// restaurants, ports, or any specific domain. It only understands:
+/// - SpatialComponents
+/// - PlacementRequests
+/// - PlacementConstraints
+/// 
+/// This makes it a true platform-level abstraction.
 class PlacementEngine {
-  final CollisionDetector collisionDetector;
+  final List<PlacementConstraint> constraints;
   final SurfacePlacementStrategy surfaceStrategy;
 
   const PlacementEngine({
-    required this.collisionDetector,
+    required this.constraints,
     required this.surfaceStrategy,
   });
 
@@ -22,18 +32,6 @@ class PlacementEngine {
     PlacementRequest request,
     SpatialWorld world,
   ) {
-    final subject = world.model(request.subjectId);
-
-    if (subject == null) {
-      return const PlacementResult.invalid('Subject does not exist');
-    }
-
-    final target = world.model(request.targetId);
-
-    if (target == null) {
-      return const PlacementResult.invalid('Target does not exist');
-    }
-
     final candidates = _generateCandidates(request, world);
 
     if (candidates.isEmpty) {
@@ -43,11 +41,30 @@ class PlacementEngine {
     PlacementResult? best;
 
     for (final candidate in candidates) {
-      final result = _evaluateCandidate(candidate, request, world);
+      // Evaluate all constraints
+      final results = constraints.map(
+        (constraint) => constraint.evaluate(candidate, request, world),
+      );
 
-      if (!result.valid) {
+      final failures = results.where((result) => !result.satisfied).toList();
+
+      // Skip if any hard constraint failed
+      if (failures.isNotEmpty) {
         continue;
       }
+
+      // Score the candidate
+      final score = _scoreCandidate(candidate, request);
+
+      final result = PlacementResult(
+        valid: true,
+        position: candidate.position,
+        rotation: candidate.rotation,
+        surfaceId: candidate.surfaceId,
+        anchorId: candidate.anchorId,
+        score: score,
+        reasons: results.map((r) => r.reason).toList(),
+      );
 
       if (best == null || result.score > best.score) {
         best = result;
@@ -55,7 +72,7 @@ class PlacementEngine {
     }
 
     if (best == null) {
-      return const PlacementResult.invalid('All candidates invalid');
+      return const PlacementResult.invalid('No valid placement found');
     }
 
     return best;
@@ -69,65 +86,24 @@ class PlacementEngine {
       case SpatialRelationType.on:
       case SpatialRelationType.supports:
         return surfaceStrategy.generate(request, world);
-      
+
       // TODO: Add more strategies for other relations
       default:
         return const [];
     }
   }
 
-  PlacementResult _evaluateCandidate(
+  double _scoreCandidate(
     PlacementCandidate candidate,
     PlacementRequest request,
-    SpatialWorld world,
   ) {
-    final subject = world.model(request.subjectId);
-    final reasons = <String>[];
+    final preferred = request.preferredPosition;
 
-    if (subject == null) {
-      return const PlacementResult.invalid('Subject not found');
+    if (preferred == null) {
+      return 1.0;
     }
 
-    // Check collision with other entities
-    final subjectBounds = subject.localBounds as dynamic;
-    final candidateBounds = subjectBounds.translated(candidate.position);
-
-    for (final entry in world.models.entries) {
-      if (entry.key == request.subjectId) {
-        continue;
-      }
-
-      final otherModel = entry.value;
-      final otherBounds = (otherModel.localBounds as dynamic).translated(otherModel.position as Vector3);
-
-      if (collisionDetector.intersects(
-        candidateBounds,
-        otherBounds,
-        clearance: request.clearance,
-      )) {
-        reasons.add('Collision with ${entry.key}');
-      }
-    }
-
-    if (reasons.isNotEmpty) {
-      return PlacementResult.invalid(reasons.join('; '));
-    }
-
-    // Calculate score based on distance from preferred position
-    double score = 1.0;
-    if (request.preferredPosition != null) {
-      final distance = (candidate.position - request.preferredPosition!).length;
-      score = 1.0 / (1.0 + distance);
-    }
-
-    return PlacementResult(
-      valid: true,
-      position: candidate.position,
-      rotation: candidate.rotation,
-      surfaceId: candidate.surfaceId,
-      anchorId: candidate.anchorId,
-      score: score,
-      reasons: ['Valid placement'],
-    );
+    final distance = candidate.position.distanceTo(preferred);
+    return 1.0 / (1.0 + distance);
   }
 }
