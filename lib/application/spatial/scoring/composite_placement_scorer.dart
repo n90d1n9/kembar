@@ -2,6 +2,7 @@ import '../placement_candidate.dart';
 import '../../domain/spatial/placement_request.dart';
 import '../spatial_world.dart';
 import 'placement_scorer.dart';
+import 'neighbor_pattern_scorer.dart';
 
 /// Composite scorer that combines multiple scorers.
 ///
@@ -15,7 +16,7 @@ import 'placement_scorer.dart';
 ///   scorers: [
 ///     DistanceScorer(),        // Prefer positions near user's click
 ///     AnchorPreferenceScorer(), // Bonus for anchor positions
-///     StabilityScorer(),       // Bonus for lower center of mass
+///     NeighborPatternScorer(),  // Prefer aligned, evenly-spaced arrangements
 ///   ],
 /// );
 /// ```
@@ -25,11 +26,30 @@ import 'placement_scorer.dart';
 /// WeightedScorer([
 ///   (DistanceScorer(), 0.5),
 ///   (AnchorPreferenceScorer(), 0.3),
-///   (StabilityScorer(), 0.2),
+///   (NeighborPatternScorer(), 0.2),
 /// ])
 /// ```
 class CompositePlacementScorer implements PlacementScorer {
   final List<PlacementScorer> scorers;
+
+  /// Create a default composite scorer with distance, anchor, and neighbor scorers.
+  factory CompositePlacementScorer.defaultSet({
+    double desiredSpacing = 0.05,
+    bool preferAlignment = true,
+    bool preferSameOrientation = true,
+  }) {
+    return CompositePlacementScorer(
+      scorers: [
+        const DistanceScorer(),
+        const AnchorPreferenceScorer(),
+        NeighborPatternScorer(
+          desiredSpacing: desiredSpacing,
+          preferAlignment: preferAlignment,
+          preferSameOrientation: preferSameOrientation,
+        ),
+      ],
+    );
+  }
 
   const CompositePlacementScorer({
     required this.scorers,
