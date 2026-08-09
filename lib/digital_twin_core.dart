@@ -109,3 +109,17 @@ export 'domain/event/event_bus.dart';
 // Game Features
 export 'application/simulation/time_warp.dart';
 export 'application/simulation/scenario_runner.dart';
+
+// Intelligence & Prediction (Step 14)
+export 'domain/intelligence/prediction_request.dart';
+export 'domain/intelligence/prediction_result.dart';
+export 'application/intelligence/predictor_registry.dart';
+export 'application/intelligence/predictors/port_congestion_predictor.dart';
+export 'application/intelligence/predictors/parking_occupancy_predictor.dart';
+export 'application/intelligence/predictors/restaurant_wait_time_predictor.dart';
+export 'application/intelligence/predictors/warehouse_bottleneck_predictor.dart';
+export 'application/intelligence/optimization/objective_function.dart';
+export 'application/intelligence/optimization/simple_optimizer.dart';
+export 'application/intelligence/anomaly/anomaly_detector.dart';
+export 'application/intelligence/scenario/what_if_engine.dart';
+export 'application/intelligence/scenario/comparison_report.dart';
