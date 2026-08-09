@@ -83,3 +83,8 @@ export 'application/spatial/scoring/neighbor_pattern_scorer.dart';
 // Spatial Neighbors (Step 11 - Neighbor-Aware Placement)
 export 'application/spatial/neighbors/spatial_neighbor.dart';
 export 'application/spatial/neighbors/neighbor_analyzer.dart';
+
+// Spatial Relations (Step 12)
+export 'domain/spatial/relations/spatial_relationship.dart';
+export 'application/spatial/relations/spatial_relation_query.dart';
+export 'application/spatial/relations/relation_constraint_resolver.dart';
