@@ -15,33 +15,32 @@ __pycache__/
 .venv/
 venv/
 node_modules/
-target/
-.gradle/
 .mypy_cache/
 .pytest_cache/
-.julia/
-zig*/
-julia-*/
+target/
+.gradle/
 
-# Logs and temp files
-*.log
-*.tmp
+# Build outputs
+dist/
+build/
+coverage/
+htmlcov/
+.coverage
+
+# Editors
+.vscode/
+.idea/
 *.swp
 *.swo
+*.tmp
+
+# Logs
+*.log
 
 # Environment
 .env
 .env.local
 *.env.*
-
-# Editors
-.vscode/
-.idea/
-
-# Coverage
-coverage/
-htmlcov/
-.coverage
 
 # System files
 .DS_Store
