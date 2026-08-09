@@ -1,35 +1,50 @@
 ```
-# Dart/Flutter specific
-.dart_tool/
-.packages
-pubspec.lock
+# Compiled and build artifacts
+*.pyc
+__pycache__/
+*.o
+*.obj
+*.class
+*.exe
+*.dll
+*.so
+*.a
+*.out
 
-# Build artifacts
-build/
-*.g.dart
+# Dependencies
+.venv/
+venv/
+node_modules/
+target/
+.gradle/
+.mypy_cache/
+.pytest_cache/
+.julia/
+zig*/
 
-# Logs
+# Logs and temp files
 *.log
+*.tmp
+*.swp
+*.swo
 
-# Environment variables
+# Environment
 .env
 .env.local
 *.env.*
 
-# IDE files
+# Editors
 .vscode/
 .idea/
-*.swp
-*.swo
-*.tmp
 
-# OS generated files
+# System files
 .DS_Store
 Thumbs.db
 
 # Coverage
 coverage/
-*.coverage
+htmlcov/
+.coverage
 
 # Compressed files
 *.zip
