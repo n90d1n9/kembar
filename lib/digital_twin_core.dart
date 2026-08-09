@@ -71,9 +71,15 @@ export 'application/spatial/candidates/candidate_generator.dart';
 export 'application/spatial/candidates/surface_candidate_generator.dart';
 export 'application/spatial/candidates/anchor_candidate_generator.dart';
 export 'application/spatial/candidates/composite_candidate_generator.dart';
+export 'application/spatial/candidates/neighbor_candidate_generator.dart';
 
-// Spatial Scoring (Step 10)
+// Spatial Scoring (Step 10 & 11)
 export 'application/spatial/scoring/placement_scorer.dart';
 export 'application/spatial/scoring/distance_scorer.dart';
 export 'application/spatial/scoring/anchor_preference_scorer.dart';
 export 'application/spatial/scoring/composite_placement_scorer.dart';
+export 'application/spatial/scoring/neighbor_pattern_scorer.dart';
+
+// Spatial Neighbors (Step 11 - Neighbor-Aware Placement)
+export 'application/spatial/neighbors/spatial_neighbor.dart';
+export 'application/spatial/neighbors/neighbor_analyzer.dart';
