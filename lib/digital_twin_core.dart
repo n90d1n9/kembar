@@ -123,3 +123,57 @@ export 'application/intelligence/optimization/simple_optimizer.dart';
 export 'application/intelligence/anomaly/anomaly_detector.dart';
 export 'application/intelligence/scenario/what_if_engine.dart';
 export 'application/intelligence/scenario/comparison_report.dart';
+
+// Spatial Relations (Step 12)
+export 'domain/spatial/relations/spatial_relationship.dart';
+export 'application/spatial/relations/spatial_relation_query.dart';
+export 'application/spatial/relations/relation_constraint_resolver.dart';
+
+// Simulation Core (Step 13)
+export 'application/simulation/physics/physics_body.dart';
+export 'application/simulation/physics/simple_physics_engine.dart';
+export 'application/simulation/core/simulation_step.dart';
+
+// Interaction (Step 13)
+export 'application/interaction/drag_drop_controller.dart';
+export 'application/interaction/tool_manager.dart';
+export 'application/interaction/gesture_handler.dart';
+
+// Event System (Step 13)
+export 'domain/event/command.dart';
+export 'domain/event/event_bus.dart';
+
+// Game Features (Step 13)
+export 'application/simulation/time_warp.dart';
+export 'application/simulation/scenario_runner.dart';
+
+// Intelligence - Predictors (Step 14)
+export 'domain/intelligence/prediction_request.dart';
+export 'domain/intelligence/prediction_result.dart';
+export 'application/intelligence/predictor_registry.dart';
+export 'application/intelligence/predictors/port_congestion_predictor.dart';
+export 'application/intelligence/predictors/parking_occupancy_predictor.dart';
+export 'application/intelligence/predictors/restaurant_wait_time_predictor.dart';
+export 'application/intelligence/predictors/warehouse_bottleneck_predictor.dart';
+
+// Optimization & Anomaly (Step 14)
+export 'application/intelligence/optimization/objective_function.dart';
+export 'application/intelligence/optimization/simple_optimizer.dart';
+export 'application/intelligence/anomaly/anomaly_detector.dart';
+
+// What-If Analysis (Step 14)
+export 'application/intelligence/scenario/what_if_engine.dart';
+export 'application/intelligence/scenario/comparison_report.dart';
+
+// Interoperability (Step 15)
+export 'domain/interop/dtml_serializer.dart';
+export 'domain/interop/entity_mapping.dart';
+export 'domain/interop/semantic_bridge.dart';
+export 'application/interop/import_engine.dart';
+export 'application/interop/export_engine.dart';
+export 'application/interop/batch_converter.dart';
+export 'application/federation/twin_federation_manager.dart';
+export 'application/federation/cross_twin_event_bus.dart';
+export 'application/federation/state_sync_protocol.dart';
+export 'application/interop/adapters/port_standard_adapter.dart';
+export 'application/interop/adapters/generic_bim_adapter.dart';
