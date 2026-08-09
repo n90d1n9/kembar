@@ -10,6 +10,9 @@ class TwinRuntime {
   final StreamController<TwinEvent> _eventController =
       StreamController<TwinEvent>.broadcast();
 
+  final StreamController<TwinState> _stateController =
+      StreamController<TwinState>.broadcast();
+
   TwinRuntime({
     TwinState initialState = const TwinState(),
   }) : _state = initialState;
@@ -17,6 +20,24 @@ class TwinRuntime {
   TwinState get state => _state;
 
   Stream<TwinEvent> get events => _eventController.stream;
+
+  /// Stream of TwinState that emits after every event.
+  /// 
+  /// Useful for UI/dashboard consumers that want current state
+  /// rather than individual events.
+  Stream<TwinState> get states => _stateController.stream;
+
+  /// Number of entities currently in the runtime.
+  int get entityCount => _state.entities.length;
+
+  /// Count entities by type.
+  /// 
+  /// Useful for debugging and dashboards.
+  int countByType(String type) {
+    return _state.entities.values
+        .where((entity) => entity.type == type)
+        .length;
+  }
 
   void apply(TwinEvent event) {
     switch (event) {
@@ -31,6 +52,16 @@ class TwinRuntime {
     }
 
     _eventController.add(event);
+    _stateController.add(_state);
+  }
+
+  /// Apply multiple events at once.
+  /// 
+  /// Useful for initial snapshot loading.
+  void applyAll(Iterable<TwinEvent> events) {
+    for (final event in events) {
+      apply(event);
+    }
   }
 
   void _applyCreated(EntityCreated event) {
@@ -71,5 +102,6 @@ class TwinRuntime {
 
   Future<void> dispose() async {
     await _eventController.close();
+    await _stateController.close();
   }
 }
