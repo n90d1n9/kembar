@@ -1,0 +1,48 @@
+name: terminal_digital_twin
+description: >
+  Terminal Operating System — container yard Digital Twin. Places containers
+  at their exact real yard position (bay/row/tier -> Cartesian meters) and
+  renders them in 3D via lite_3d_core, with a secondary geo overview via
+  goodmap. Flutter + Riverpod, no build_runner / code generation.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+  flutter: '>=3.19.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management — plain Provider/StreamProvider/Notifier, no
+  # riverpod_generator / @riverpod annotations, so no build_runner step.
+  flutter_riverpod: ^2.6.1
+
+  # 3D scene graph + GLB export (the same engine tenun_3d's chart
+  # rendering is built on).
+  lite_3d_core: ^0.1.0
+
+  # Renders the exported GLB scene (wraps Google's model-viewer).
+  flutter_3d_controller: ^2.3.0
+
+  # Terminal-level geo overview (flat map + globe, MapLibre-based).
+  goodmap: ^0.6.0
+
+  # Only used for Iterable.firstOrNull — official Dart-team package,
+  # no code generation.
+  collection: ^1.18.0
+
+  # Real backend repositories (REST snapshot + WebSocket live updates) —
+  # not used by default (see twinBackendConfigProvider), only once a real
+  # backend is configured.
+  http: ^1.2.0
+  web_socket_channel: ^3.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
